@@ -8,25 +8,26 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     this.minLength = 8; //this is what we defined and what we need to consider in our length check
 
     //this attributes are set with our constructor
-    this.wrapperField = $(wrapperId);
-    this.passwordField = $(passwordInputFieldId);
-    this.passwordSubmitButton = $(passwordSubmitButtonId);
+    this.wrapperField = $(wrapperId);   //1.getElementById statt $
+    this.passwordField = $(passwordInputFieldId);  //getElementById statt $
+    this.passwordSubmitButton = $(passwordSubmitButtonId);  //getElementById statt $
 
 
     var that = this; //a trick because this is a keyword and means different things in a new context! Especially when you work with events or if you call functions outside your class "this" won't mean you!
 
+    // 2. kein TODO start
     //now for the events which should fire:
     //if we leave the password field (focus is lost) - JavaScript Method "onblur" for an input field in our case the field this.passwordField
     //if we enter the password field (focus is set) - JavaScript Method "onfocus" for an input field - again in our case the field this.passwordField
     //if we are in the password field an enter text - JavaScript Method "onkeyup" or "onkeup" - again in our case the field this.passwordField
     //if we try to click the submit button - JavaScript Method "onclick" - in our case this.passwordSubmitButton
 
-    this.passwordField.blur(function() {
+    this.passwordField.blur(function() {           //3. this.passwordField.onblur = function(){...}
         //the keyword "this" is always referring to its context.
         //onblur is an event which happens in "passwordField" -> so the keyword "this" would refer to the passwordField NOT to our class
         //therefore we previously saved "this" in a variable called "that"
         that.check();
-    });
+    });  //3 Kontinuation blur(function)
 
     this.passwordField.keydown(function() {
         that.check();
@@ -41,6 +42,7 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     });
 
 
+    // 2. continuation von (kein TODO START) kein TODO end
 
     this.check = function() {
         //we can only check if every field which with given Id exists
@@ -51,14 +53,14 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
 
             //if it is long enough and has a special character - everything is fine
             if(longEnough && hasSpecialChars) {
-                this.wrapperField.removeClass(this.warningClass + ' ' + this.errorClass).addClass(this.successClass);
-                this.passwordSubmitButton.attr('disabled', false);
+                this.wrapperField.removeClass(this.warningClass + ' ' + this.errorClass).addClass(this.successClass); //4.this.wrapperField.className = this.successClass;
+                this.passwordSubmitButton.attr('disabled', false); //5.this.passwordSubmitButton.disabled = false;
             } else if(!hasSpecialChars && longEnough) { //if it is long enough but it has no special character set class warning
-                this.wrapperField.removeClass(this.successClass + ' ' + this.errorClass).addClass(this.warningClass);
-                this.passwordSubmitButton.attr('disabled', true);
+                this.wrapperField.removeClass(this.successClass + ' ' + this.errorClass).addClass(this.warningClass); //this.wrapperField.className = this.warningClass;
+                this.passwordSubmitButton.attr('disabled', true); //this.passwordSubmitButton.disabled = true;
             } else { //if it is not long enough set class error
-                this.wrapperField.removeClass(this.warningClass + ' ' + this.successClass).addClass(this.errorClass);
-                this.passwordSubmitButton.attr('disabled', true);
+                this.wrapperField.removeClass(this.warningClass + ' ' + this.successClass).addClass(this.errorClass); //this.wrapperField.className = this.errorClass;
+                this.passwordSubmitButton.attr('disabled', true); //this.passwordSubmitButton.disabled = true;
             }
 
 
@@ -70,7 +72,7 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         }
     };
 
-    //TODO 2 start
+    //2. TODO 2 start (nicht in .js)
     /*
     This method should return true if the length of passwordField value is greater or equal to this.minLength
      */
@@ -89,7 +91,5 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
         //you could probably "match" it somehow
         return true; //this needs to be replaced!
     };
-    //TODO 2 end
+    //2. TODO 2 end (nicht in .js)
 }
-
-
