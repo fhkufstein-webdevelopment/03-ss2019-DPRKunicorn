@@ -22,13 +22,21 @@ function PasswordChecker(wrapperId, passwordInputFieldId, passwordSubmitButtonId
     //if we are in the password field an enter text - JavaScript Method "onkeyup" or "onkeup" - again in our case the field this.passwordField
     //if we try to click the submit button - JavaScript Method "onclick" - in our case this.passwordSubmitButton
 
-    this.passwordField.onblur, this.passwordField.onkeyup, this.passwordField.onkeydown = function() {
+    this.passwordField.onblur = function() {
         //the keyword "this" is always referring to its context.
         //onblur is an event which happens in "passwordField" -> so the keyword "this" would refer to the passwordField NOT to our class
         //therefore we previously saved "this" in a variable called "that"
         that.check();
     };
-    this.passwordField.onmouseover=function()
+    this.passwordField.onkeydown = function()
+    {
+      that.check();
+    };
+    this.passwordField.onkeyup = function()
+    {
+      that.check();
+    };
+    this.passwordField.onmouseover = function()
     {
       that.check();
     };
